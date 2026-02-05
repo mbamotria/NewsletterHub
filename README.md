@@ -63,4 +63,4 @@ NewsletterHub is a PHP + MySQL web application for creating, publishing, and dis
 - The project does not include automated migrations; the schema lives in `Database/newsletter.sql`.
 
 ## License
-Specify your license here.
+MIT License.
