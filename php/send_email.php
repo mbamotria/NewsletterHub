@@ -59,16 +59,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 try {
                     // Server settings
                     $mail->isSMTP();
-                    $mail->Host       = 'smtp.gmail.com';  // Set your SMTP server
+                    $mail->Host       = getenv('SMTP_HOST') ?: 'smtp.gmail.com';
                     $mail->SMTPAuth   = true;
-                    $mail->Username   = 'mohammedbinahmed007@gmail.com'; // Your email address
-                    $mail->Password   = 'qkwvpzgogvmnryyf';   // Your email password
+                    $mail->Username   = getenv('SMTP_USERNAME') ?: '';
+                    $mail->Password   = getenv('SMTP_PASSWORD') ?: '';
                     $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-                    $mail->Port       = 587;
+                    $mail->Port       = getenv('SMTP_PORT') ?: 587;
 
                     // Set email format to HTML
                     $mail->isHTML(true);
-                    $mail->setFrom('mohammedbinahmed007@gmail.com', 'Newsletter');
+                    $fromEmail = getenv('SMTP_FROM') ?: $mail->Username;
+                    $mail->setFrom($fromEmail, 'Newsletter');
 
                     // Loop through each email and send the newsletter
                     while ($row = $result->fetch_assoc()) {
